@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1493</width>
+    <height>676</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>501</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string> Ellipses   center x           center y           a-axis               b-axis               angle (rad)           </string>
+    </property>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>16</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>1</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>50</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>2</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>3</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>110</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>4</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>140</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>5</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_7">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>170</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>6</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>441</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QSpinBox" name="centerx1">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery1">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis1">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis1">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle1">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QSpinBox" name="centerx2">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery2">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis2">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis2">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle2">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QSpinBox" name="centerx3">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery3">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis3">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis3">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle3">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QSpinBox" name="centerx4">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery4">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis4">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis4">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle4">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QSpinBox" name="centerx5">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery5">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis5">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis5">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle5">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QSpinBox" name="centerx6">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="centery6">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="aaxis6">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="baxis6">
+          <property name="maximum">
+           <number>256</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="angle6">
+          <property name="maximum">
+           <double>6283.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <zorder>centerx1</zorder>
+    <zorder>centery1</zorder>
+    <zorder>aaxis1</zorder>
+    <zorder>baxis1</zorder>
+    <zorder>angle1</zorder>
+    <zorder>centery2</zorder>
+    <zorder>baxis2</zorder>
+    <zorder>angle2</zorder>
+    <zorder>aaxis2</zorder>
+    <zorder>centerx2</zorder>
+    <zorder>aaxis3</zorder>
+    <zorder>baxis3</zorder>
+    <zorder>centery3</zorder>
+    <zorder>centerx3</zorder>
+    <zorder>angle3</zorder>
+    <zorder>aaxis4</zorder>
+    <zorder>baxis4</zorder>
+    <zorder>centery4</zorder>
+    <zorder>centerx4</zorder>
+    <zorder>angle4</zorder>
+    <zorder>aaxis5</zorder>
+    <zorder>baxis5</zorder>
+    <zorder>centery5</zorder>
+    <zorder>centerx5</zorder>
+    <zorder>angle5</zorder>
+    <zorder>aaxis6</zorder>
+    <zorder>baxis6</zorder>
+    <zorder>centery6</zorder>
+    <zorder>centerx6</zorder>
+    <zorder>angle6</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>groupBox_3</zorder>
+    <zorder>groupBox_4</zorder>
+    <zorder>groupBox_5</zorder>
+    <zorder>groupBox_6</zorder>
+    <zorder>groupBox_7</zorder>
+    <zorder>angle3</zorder>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1493</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
