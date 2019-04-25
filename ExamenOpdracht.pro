@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ExamenOpdracht
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -20,3 +21,9 @@ HEADERS  += mainwindow.h \
     ellipseimage.h
 
 FORMS    += mainwindow.ui
+
+
+unix {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += opencv
+}
