@@ -6,14 +6,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+<<<<<<< HEAD
+=======
     ui->picture->setFixedWidth(256);
     ui->picture->setFixedWidth(256);
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+<<<<<<< HEAD
+=======
 
 void MainWindow::on_drawbutton_clicked()
 {
@@ -92,7 +97,11 @@ void MainWindow::on_drawbutton_clicked()
     }
 
 }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
+>>>>>>> dc6af5140278b3845673859c111ce1f0c80666a2

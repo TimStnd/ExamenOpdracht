@@ -19,12 +19,20 @@
      <rect>
       <x>0</x>
       <y>0</y>
+<<<<<<< HEAD
+      <width>501</width>
+=======
       <width>631</width>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
       <height>191</height>
      </rect>
     </property>
     <property name="title">
+<<<<<<< HEAD
+     <string> Ellipses   center x           center y           a-axis               b-axis               angle (rad)           </string>
+=======
      <string> Ellipses   center x           center y           a-axis               b-axis               angle (rad)      amount of points          </string>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
     </property>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
@@ -109,8 +117,16 @@
       <rect>
        <x>60</x>
        <y>20</y>
+<<<<<<< HEAD
+       <width>441</width>
+=======
        <width>531</width>
+<<<<<<< HEAD
        <height>206</height>
+=======
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
+       <height>171</height>
+>>>>>>> dc6af5140278b3845673859c111ce1f0c80666a2
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -151,6 +167,8 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+=======
         <item>
          <widget class="QSpinBox" name="amount1">
           <property name="maximum">
@@ -158,6 +176,7 @@
           </property>
          </widget>
         </item>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
        </layout>
       </item>
       <item>
@@ -197,6 +216,8 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+=======
         <item>
          <widget class="QSpinBox" name="amount2">
           <property name="maximum">
@@ -204,6 +225,7 @@
           </property>
          </widget>
         </item>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
        </layout>
       </item>
       <item>
@@ -243,6 +265,8 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+=======
         <item>
          <widget class="QSpinBox" name="amount3">
           <property name="maximum">
@@ -250,6 +274,7 @@
           </property>
          </widget>
         </item>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
        </layout>
       </item>
       <item>
@@ -289,6 +314,8 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+=======
         <item>
          <widget class="QSpinBox" name="amount4">
           <property name="maximum">
@@ -296,6 +323,7 @@
           </property>
          </widget>
         </item>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
        </layout>
       </item>
       <item>
@@ -335,6 +363,12 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+=======
         <item>
          <widget class="QSpinBox" name="amount5">
           <property name="maximum">
@@ -346,6 +380,7 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_7">
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
         <item>
          <widget class="QSpinBox" name="centerx6">
           <property name="maximum">
@@ -381,6 +416,8 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
+=======
         <item>
          <widget class="QSpinBox" name="amount6">
           <property name="maximum">
@@ -388,10 +425,50 @@
           </property>
          </widget>
         </item>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
        </layout>
       </item>
      </layout>
     </widget>
+<<<<<<< HEAD
+    <zorder>centerx1</zorder>
+    <zorder>centery1</zorder>
+    <zorder>aaxis1</zorder>
+    <zorder>baxis1</zorder>
+    <zorder>angle1</zorder>
+    <zorder>centery2</zorder>
+    <zorder>baxis2</zorder>
+    <zorder>angle2</zorder>
+    <zorder>aaxis2</zorder>
+    <zorder>centerx2</zorder>
+    <zorder>aaxis3</zorder>
+    <zorder>baxis3</zorder>
+    <zorder>centery3</zorder>
+    <zorder>centerx3</zorder>
+    <zorder>angle3</zorder>
+    <zorder>aaxis4</zorder>
+    <zorder>baxis4</zorder>
+    <zorder>centery4</zorder>
+    <zorder>centerx4</zorder>
+    <zorder>angle4</zorder>
+    <zorder>aaxis5</zorder>
+    <zorder>baxis5</zorder>
+    <zorder>centery5</zorder>
+    <zorder>centerx5</zorder>
+    <zorder>angle5</zorder>
+    <zorder>aaxis6</zorder>
+    <zorder>baxis6</zorder>
+    <zorder>centery6</zorder>
+    <zorder>centerx6</zorder>
+    <zorder>angle6</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>groupBox_3</zorder>
+    <zorder>groupBox_4</zorder>
+    <zorder>groupBox_5</zorder>
+    <zorder>groupBox_6</zorder>
+    <zorder>groupBox_7</zorder>
+    <zorder>angle3</zorder>
+=======
    </widget>
    <widget class="QGroupBox" name="groupBox_15">
     <property name="geometry">
@@ -823,6 +900,7 @@
     <property name="text">
      <string/>
     </property>
+>>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
