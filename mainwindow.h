@@ -1,17 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <iostream>
 #include <QMainWindow>
-
-#include <QImage>
-#include <QMessageBox>
-#include <QFileDialog>
-
-#include "string"
-#include "stdio.h"
-
-#include <opencv2/opencv.hpp>
-
 
 namespace Ui {
 class MainWindow;
@@ -26,18 +17,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionOpen_triggered();
-
-    void on_actionSave_triggered();
-
-    void on_actionSave_as_triggered();
+    void on_drawbutton_clicked();
 
 private:
     Ui::MainWindow *ui;
-
-    QString currentFile;
-
-    cv::Mat ImageMat;
 };
 
 #endif // MAINWINDOW_H
