@@ -6,19 +6,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-<<<<<<< HEAD
-=======
+
+
+
+
     ui->picture->setFixedWidth(256);
     ui->picture->setFixedWidth(256);
->>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-<<<<<<< HEAD
-=======
+
 
 void MainWindow::on_drawbutton_clicked()
 {
@@ -97,4 +98,69 @@ void MainWindow::on_drawbutton_clicked()
     }
 
 }
->>>>>>> 3bbcb8d83e6ff5aa365923f4d9141b287e7df908
+
+
+
+
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+
+    QByteArray imageFormat = QImageReader::imageFormat(fileName);
+
+    if (! imageFormat.isEmpty()){
+
+        QImage image(fileName);
+        image.save("Temp.png", "PNG");
+        ImageMat = cv::imread("Temp.png");
+        std::remove("Temp.png");
+
+
+        currentFile = fileName;
+
+        std::string fileNameString = fileName.toStdString();
+
+        const unsigned startDelimiter = fileNameString.find_last_of("/");
+        const unsigned stopDelimiter = fileNameString.find_last_of(".");
+
+        std::string NameString = fileNameString.substr(startDelimiter + 1, stopDelimiter - startDelimiter - 1);
+
+        setWindowTitle(QString::fromStdString(NameString));
+    }
+    else {
+        std::cerr << "This image format is not supported." << std::endl;
+    }
+
+
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+
+
+    cv::imwrite("Temp.png", ImageMat);
+    QImage image("Temp.png");
+    std::remove("Temp.png");
+    std::string fileNameString = fileName.toStdString();
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        image.save(fileName, "PNG");
+    }
+
+    else{
+
+        std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        image.save(fileName, extension.c_str());
+    }
+
+    //if (fileNameString.find(".") < std::string::npos)
+
+
+
+
+}
