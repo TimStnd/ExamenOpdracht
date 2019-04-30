@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //Joshua Claes
 //joshua.claes@student.uantwerpen.be
 //datum: 22/04/2019
@@ -40,3 +41,16 @@ int main(int argc, char *argv[])
 
 
 
+=======
+#include "mainwindow.h"
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+}
+>>>>>>> cca984dc77c66420364b4e9204fab047fb4e4b7b
