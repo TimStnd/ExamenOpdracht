@@ -15,10 +15,12 @@ QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ellipseimage.cpp
+    ellipseimage.cpp \
+    ellipsfinder.cpp
 
 HEADERS  += mainwindow.h \
-    ellipseimage.h
+    ellipseimage.h \
+    ellipsfinder.h
 
 FORMS    += mainwindow.ui
 
