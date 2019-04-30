@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <QMainWindow>
+#include "ellipseimage.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    cv::Mat ImageMat;
+    int amountellipse;
 };
 
 #endif // MAINWINDOW_H
