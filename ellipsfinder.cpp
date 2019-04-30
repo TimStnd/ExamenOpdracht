@@ -35,7 +35,14 @@ double Ellipsfinder::getHalflengthMaA(const cv::Point &Pone, const cv::Point &Pt
 
 double Ellipsfinder::getOrientation(const cv::Point &Pone, const cv::Point &Ptwo) const
 {
-    return atan((Ptwo.y-Pone.x)/(Ptwo.x-Pone.x));
+    if(Pone==Ptwo)
+    {
+        std::cout<<"To point given to getOrientation are the same!"<<std::endl;
+        exit (EXIT_FAILURE);
+    }
+
+    if(Ptwo.x==Pone.x) return CV_PI/2;
+    return atan((Ptwo.y-Pone.y)/(Ptwo.x-Pone.x));
 }
 
 double Ellipsfinder::getCosTau(const double a,const cv::Point& Pzero,const cv::Point &Ptwo, const cv::Point &Prandom) const
@@ -50,10 +57,10 @@ double Ellipsfinder::getDist(const cv::Point &Pone, const cv::Point &Ptwo) const
     return sqrt(pow(Ptwo.x-Pone.x,2)+pow(Ptwo.y-Pone.y,2));
 }
 
-double Ellipsfinder::getHalflengthMiAsquared(const double a, const cv::Point &Pzero, const cv::Point &Ptwo, const cv::Point &Prandom) const
+double Ellipsfinder::getHalflengthMiA(const double a, const cv::Point &Pzero, const cv::Point &Ptwo, const cv::Point &Prandom) const
 {
     double d=getDist(Pzero,Prandom);
     double costau=getCosTau(a, Pzero, Ptwo, Prandom);
     double sintau=sin(acos(costau));
-    return (pow(a,2)*pow(d,2)*pow(sintau,2))/(pow(a,2)-pow(d,2)*pow(costau,2));
+    return sqrt((pow(a,2)*pow(d,2)*pow(sintau,2))/(pow(a,2)-pow(d,2)*pow(costau,2)));
 }

@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <stdlib.h>
 
 class Ellipsfinder
 {
@@ -31,7 +32,7 @@ private:
     double getCosTau(const double a, const cv::Point &Pzero, const cv::Point &Ptwo, const cv::Point &Prandom) const;
     //formula 6:
     //get half length of minor axis squared
-    double getHalflengthMiAsquared(const double a, const cv::Point &Pzero, const cv::Point &Ptwo, const cv::Point &Prandom)const;
+    double getHalflengthMiA(const double a, const cv::Point &Pzero, const cv::Point &Ptwo, const cv::Point &Prandom)const;
     //
     double getDist(const cv::Point &Pone,const cv::Point &Ptwo) const;//return distans between 2 points
 
