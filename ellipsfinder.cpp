@@ -3,28 +3,13 @@
 
 Ellipsfinder::Ellipsfinder(cv::Mat inputimage, unsigned minMA, unsigned minhMI, unsigned th10):IMrows(inputimage.rows),IMcols(inputimage.cols)
 {
-    Pixels.clear();
-    thresholdstep4=minMA;
-    thresholdstep6=minhMI;
-    thresholdstep10=th10;
-    for(int r=0;r<inputimage.rows;++r)
-    {
-        for(int c=0;c<inputimage.cols;++c)
-        {
-            if(inputimage.at<uchar>(r,c)==255)
-            {
-                cv::Point coord(c,r);
-                Pixels.push_back(coord);
-            }
-
-        }
-    }
+    newImage(inputimage);
     //std::cout<<Pixels.size()<<std::endl;
-    Algoritm();
+    Algoritm(minMA,minhMI,th10);
 }
 
 
-void Ellipsfinder::Algoritm()
+void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
 {
     std::set<unsigned> Pointsonellips;//all indices of point on ellipses will be put in this set
                                       //because a point can only be on one ellipse so this will be used to check this
@@ -46,14 +31,14 @@ void Ellipsfinder::Algoritm()
                 const cv::Point &CurrentPixel=Pixels.at(CPI);
                 //std::cout<<"CPI"<<CurrentPixel<<std::endl;
 
-                if(!Pointsonellips.count(CPI) && getDist(PrimaryPixel,CurrentPixel)>=thresholdstep4)//check if CP is not already on ellips && check if dist>thershold
+                if(!Pointsonellips.count(CPI) && getDist(PrimaryPixel,CurrentPixel)>=minMA)//check if CP is not already on ellips && check if dist>thershold
                 {
                     cv::Point Center=getCenter(PrimaryPixel,CurrentPixel);
 
                     for(unsigned OPI=0;OPI<Pixels.size();++OPI)//OPI other pixel index
                     {
                         const cv::Point &OtherPixel=Pixels.at(OPI);
-                        if(OPI!=CPI&&OPI!=PPI&&!Pointsonellips.count(OPI)&&getDist(Center,OtherPixel)>=thresholdstep6)
+                        if(OPI!=CPI&&OPI!=PPI&&!Pointsonellips.count(OPI)&&getDist(Center,OtherPixel)>=minhMI)
                         {
                             //std::cout<<"OPI:"<<OtherPixel<<std::endl;
                             double MA=getHalflengthMaA(PrimaryPixel,CurrentPixel);
@@ -71,7 +56,7 @@ void Ellipsfinder::Algoritm()
 
                 //finding maximum element in accumulator
                 std::vector<unsigned>::const_iterator itermax=max_element(accumulator.begin(),accumulator.end());
-                if(*itermax>=thresholdstep10)
+                if(*itermax>=th10)
                 {
                     unsigned b=itermax-accumulator.begin()+1;
                     //adding points of new ellips to pointsonellips set
@@ -105,6 +90,28 @@ void Ellipsfinder::getEllipses(std::vector<cv::Point> &Centers, std::vector<unsi
     hMA=ellipshMA;
     hMI=ellipshMI;
     orientation=ellipsorientations;
+}
+
+void Ellipsfinder::newImage(cv::Mat inputimage)
+{
+    Pixels.clear();
+    ellipsCenters.clear();
+    ellipshMA.clear();
+    ellipshMI.clear();
+    ellipsorientations.clear();
+
+    for(int r=0;r<inputimage.rows;++r)
+    {
+        for(int c=0;c<inputimage.cols;++c)
+        {
+            if(inputimage.at<uchar>(r,c)==255)
+            {
+                cv::Point coord(c,r);
+                Pixels.push_back(coord);
+            }
+
+        }
+    }
 }
 
 cv::Point Ellipsfinder::getCenter(const cv::Point &Pone, const cv::Point &Ptwo) const
