@@ -10,16 +10,16 @@ opencvfinder::opencvfinder(cv::Mat inputimage)
 }
 
 
-void opencvfinder::getelips(int threshold)
+vector<float> opencvfinder::getelips(int threshold)
 {
     struct timespec start, end;
-        cout<<"test"<<endl;
+
        vector<vector<Point> > contours;
        Mat bimage = image >= threshold;
 
        findContours(bimage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
 
-
+        vector<float> data;
        //clock_gettime(CLOCK_REALTIME, &start);
 
        for(size_t i = 0; i < contours.size(); i++)
@@ -33,13 +33,27 @@ void opencvfinder::getelips(int threshold)
 
            RotatedRect box = fitEllipse(pointsf);
 
-           cout<<"data"<<endl;
+           ;
       //*// DATA OUTPUT
-           cout << box.center << endl;
-           cout << box.center.x <<endl;
-           cout << box.angle << endl;
-           cout << box.size << endl;
-           cout << box.size.width <<endl;
-      //*//
+           data.push_back(box.center.x);
+           data.push_back(box.center.y);
+
+           if(box.size.width<box.size.height)
+           {
+               data.push_back(box.size.height);
+               data.push_back(box.size.width);
+           } else{
+               data.push_back(box.size.width);
+               data.push_back(box.size.height);
+           }
+
+           if(box.angle>90)
+           {
+                data.push_back(((270-box.angle)/180)*3.14159265);
+           } else{
+                data.push_back(((90-box.angle)/180)*3.14159265);
+           }
+           cout<<"hier"<<endl;
        }
+    return data;
 }

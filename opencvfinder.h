@@ -13,7 +13,7 @@ class opencvfinder
 {
 public:
     opencvfinder(cv::Mat inputimage);
-    void getelips(int threshold);
+    std::vector<float> getelips(int threshold);
 private:
     cv::Mat image;
 

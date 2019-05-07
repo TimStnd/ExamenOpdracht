@@ -219,7 +219,16 @@ void MainWindow::on_clear_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
+    std::vector<float> data;
     int threshold =ui->thresholdopencv->value();
     opencvfinder test(ImageMat);
-    test.getelips(threshold);
+    data=test.getelips(threshold);
+    if(data.size()>0)
+    {
+    ui->centerx1_2->setValue(data[0]);
+    ui->centery1_2->setValue(data[1]);
+    ui->aaxis1_2->setValue(data[2]);
+    ui->baxis1_2->setValue(data[3]);
+    ui->angle1_2->setValue(data[4]);
+    }
 }
