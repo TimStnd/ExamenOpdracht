@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <string>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,6 +25,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_drawbutton_clicked()
 {
+    ui->logbox->setText("");
     EllipseImage imageellipse(256,256);
     amountellipse=0;
     // get and initialize the variables from the ui
@@ -69,51 +72,146 @@ void MainWindow::on_drawbutton_clicked()
     double angle6=ui->angle6->value();
     int amount6=ui->amount6->value();
 
+    int outpoints=0;
+
     if(aaxis1>0 && baxis1>0 && amount1>0)
     {
-        imageellipse.DrawEllipse(centerx1,centery1,aaxis1,baxis1,angle1,amount1);
+        imageellipse.DrawEllipse(centerx1,centery1,aaxis1,baxis1,angle1,amount1,outpoints);
         amountellipse++;
+    } else if(aaxis1==0 && baxis1==0 && amount1==0){
+
+    }else{
+        ui->logbox->append("Ellipse 1: the axes and amount of points must be greater than zero");
+    }
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 1: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
     }
 
     if(aaxis2>0 && baxis2>0 && amount2>0)
     {
-        imageellipse.DrawEllipse(centerx2,centery2,aaxis2,baxis2,angle2,amount2);
+        imageellipse.DrawEllipse(centerx2,centery2,aaxis2,baxis2,angle2,amount2,outpoints);
         amountellipse++;
+    } else if(aaxis2==0 && baxis2==0 && amount2==0){
+
+    }else{
+        ui->logbox->append("Ellipse 2: the axes and amount of points must be greater than zero");
+    }
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 2: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
     }
 
     if(aaxis3>0 && baxis3>0 && amount3>0)
     {
-        imageellipse.DrawEllipse(centerx3,centery3,aaxis3,baxis3,angle3,amount3);
+        imageellipse.DrawEllipse(centerx3,centery3,aaxis3,baxis3,angle3,amount3,outpoints);
         amountellipse++;
+    } else if(aaxis3==0 && baxis3==0 && amount3==0){
+
+    }else{
+        ui->logbox->append("Ellipse 3: the axes and amount of points must be greater than zero");
+    }
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 3: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
     }
 
     if(aaxis4>0 && baxis4>0 && amount4>0)
     {
-        imageellipse.DrawEllipse(centerx4,centery4,aaxis4,baxis4,angle4,amount4);
+        imageellipse.DrawEllipse(centerx4,centery4,aaxis4,baxis4,angle4,amount4,outpoints);
         amountellipse++;
+    } else if(aaxis4==0 && baxis4==0 && amount4==0){
+
+    }else{
+        ui->logbox->append("Ellipse 4: the axes and amount of points must be greater than zero");
+    }
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 4: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
     }
 
     if(aaxis5>0 && baxis5>0 && amount5>0)
     {
-        imageellipse.DrawEllipse(centerx5,centery5,aaxis5,baxis5,angle5,amount5);
+        imageellipse.DrawEllipse(centerx5,centery5,aaxis5,baxis5,angle5,amount5,outpoints);
         amountellipse++;
+    } else if(aaxis5==0 && baxis5==0 && amount5==0){
+
+    }else{
+        ui->logbox->append("Ellipse 5: the axes and amount of points must be greater than zero");
     }
+
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 5: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
+    }
+
 
     if(aaxis6>0 && baxis6>0 && amount6>0)
     {
-        imageellipse.DrawEllipse(centerx6,centery6,aaxis6,baxis6,angle6,amount6);
+        imageellipse.DrawEllipse(centerx6,centery6,aaxis6,baxis6,angle6,amount6,outpoints);
         amountellipse++;
+    } else if(aaxis6==0 && baxis6==0 && amount6==0){
+
+    }else{
+        ui->logbox->append("Ellipse 6: the axes and amount of points must be greater than zero");
+    }
+
+
+    if(outpoints>0)
+    {
+        std::string outpointsstring= std::to_string(outpoints);
+        std::string logstring="Ellipse 6: "+outpointsstring+" points lay outside of the window";
+        QString qstr = QString::fromStdString(logstring);
+        ui->logbox->append(qstr);
+        outpoints=0;
     }
 
     ImageMat=imageellipse.GetImage();
 
     if(amountellipse==0)
     {
-        ui->errorbox->setText("No ellipse was drawn check if the axes and amount of points are greater than zero");
+        ui->logbox->append("No ellipses were drawn, check if the axes and amount of points are greater than zero");
     }
+
+    //std::cout<<*outpoints<<std::endl;
 
     cv::Mat img=ImageMat;
     cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 }
 
+
+void MainWindow::on_test_clicked()
+{
+    ui->logbox->append("test");
+}
+
+void MainWindow::on_clear_clicked()
+{
+    ui->logbox->setText("");
+}
