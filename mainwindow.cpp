@@ -9,12 +9,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     ui->picture->setFixedWidth(256);
     ui->picture->setFixedWidth(256);
 
     cv::Mat img=ImageMat;
     cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
+
 }
 
 MainWindow::~MainWindow()
@@ -215,3 +217,150 @@ void MainWindow::on_clear_clicked()
 {
     ui->logbox->setText("");
 }
+
+
+void MainWindow::InitialProcessing(){
+
+
+    const int thresh = 100;
+    cv::resize(ImageMat, ImageMat, cv::Size(256, 256));
+    cv::cvtColor(ImageMat, DataMat, CV_BGR2GRAY);
+    cv::blur(DataMat, DataMat, cv::Size(3,3));
+
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+
+    cv::Canny(DataMat, DataMat, thresh, thresh*2, 3);
+}
+
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+    //Nog het edge detection en blurring doen
+    //Functie nog lichtjes opkuisen, er kunnen nog wat variabelen weggelaten worden denk ik
+
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+
+
+
+    std::string fileNameString = fileName.toStdString();
+    ImageMat = cv::imread(fileNameString);
+    if (! ImageMat.empty()){
+
+
+        InitialProcessing();
+
+        currentFile = fileNameString;
+
+        const unsigned startDelimiter = fileNameString.find_last_of("/");
+        const unsigned stopDelimiter = fileNameString.find_last_of(".");
+
+        std::string NameString = fileNameString.substr(startDelimiter + 1, stopDelimiter - startDelimiter - 1);
+
+        setWindowTitle(QString::fromStdString(NameString));
+    }
+    else {
+        std::cerr << "This image format is not supported." << std::endl;
+    }
+
+
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", ImageMat);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+        cv::imwrite(fileNameString, ImageMat);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+
+
+
+
+
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+    cv::imwrite(currentFile, ImageMat);
+}
+
+void MainWindow::on_actionSave_Gray_As_triggered()
+{
+
+
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", DataMat);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+
+        cv::imwrite(fileNameString, DataMat);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+
+
+}
+
+void MainWindow::on_actionSave_Compound_As_triggered()
+{
+    cv::Mat DataColor;
+    cv::cvtColor(DataMat, DataColor, CV_GRAY2BGR);
+    Compound = ImageMat + DataColor;
+
+
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", Compound);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+
+        cv::imwrite(fileNameString, Compound);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+}
+

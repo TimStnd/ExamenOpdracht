@@ -822,6 +822,9 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Gray_As"/>
+    <addaction name="actionSave_Compound_As"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -847,6 +850,16 @@
   <action name="actionSave_as">
    <property name="text">
     <string>Save as</string>
+   </property>
+  </action>
+  <action name="actionSave_Gray_As">
+   <property name="text">
+    <string>Save Gray As</string>
+   </property>
+  </action>
+  <action name="actionSave_Compound_As">
+   <property name="text">
+    <string>Save Compound As</string>
    </property>
   </action>
  </widget>
