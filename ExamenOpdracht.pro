@@ -26,11 +26,13 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     ellipseimage.cpp \
-    ellipsfinder.cpp
+    ellipsfinder.cpp \
+    opencvfinder.cpp
 
 HEADERS  += mainwindow.h \
     ellipseimage.h \
-    ellipsfinder.h
+    ellipsfinder.h \
+    opencvfinder.h
 
 FORMS    += mainwindow.ui
 

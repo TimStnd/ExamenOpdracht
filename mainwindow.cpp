@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <string>
 #include <QString>
+#include "opencvfinder.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -214,4 +215,11 @@ void MainWindow::on_test_clicked()
 void MainWindow::on_clear_clicked()
 {
     ui->logbox->setText("");
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    int threshold =ui->thresholdopencv->value();
+    opencvfinder test(ImageMat);
+    test.getelips(threshold);
 }

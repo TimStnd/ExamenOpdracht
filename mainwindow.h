@@ -27,6 +27,8 @@ private slots:
 
     void on_clear_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cv::Mat ImageMat;
