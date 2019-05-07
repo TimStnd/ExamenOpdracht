@@ -195,7 +195,8 @@ void MainWindow::on_drawbutton_clicked()
         outpoints=0;
     }
 
-    ImageMat=imageellipse.GetImage();
+    ImageMat=imageellipse.GetColourImage();
+    DataMat=imageellipse.GetImage();
 
     if(amountellipse==0)
     {
@@ -205,7 +206,6 @@ void MainWindow::on_drawbutton_clicked()
     //std::cout<<*outpoints<<std::endl;
 
     cv::Mat img=ImageMat;
-    cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 }
 
@@ -248,6 +248,7 @@ void MainWindow::on_actionOpen_triggered()
 
     std::string fileNameString = fileName.toStdString();
     ImageMat = cv::imread(fileNameString);
+    cv::cvtColor(ImageMat, ImageMat, CV_RGB2BGR);
     if (! ImageMat.empty()){
 
 
@@ -261,6 +262,9 @@ void MainWindow::on_actionOpen_triggered()
         std::string NameString = fileNameString.substr(startDelimiter + 1, stopDelimiter - startDelimiter - 1);
 
         setWindowTitle(QString::fromStdString(NameString));
+
+        cv::Mat img=ImageMat;
+        ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
     }
     else {
         std::cerr << "This image format is not supported." << std::endl;
@@ -366,3 +370,37 @@ void MainWindow::on_actionSave_Compound_As_triggered()
 
 }
 
+
+
+
+
+
+void MainWindow::on_OwnAlgorithm_clicked()
+{
+    //Maak van de variabelen nog veranderlijk via QT
+    Ellipsfinder Finder(DataMat, 50, 30, 100);
+
+    std::vector<cv::Point> Centers; std::vector<unsigned> HMA; std::vector<unsigned> HMI; std::vector<double> orientation;
+
+    Finder.getEllipses(Centers, HMA, HMI, orientation);
+
+    if (Centers.size() >= 1){
+
+        ui->centerx1_2->setValue((Centers.at(0)).x);
+        ui->centery1_2->setValue((Centers.at(0)).y);
+        ui->aaxis1_2->setValue(HMA.at(0));
+        ui->baxis1_2->setValue(HMI.at(0));
+        ui->angle1_2->setValue(orientation.at(0));
+    }
+
+    if (Centers.size() >= 2){
+
+        ui->centerx2_2->setValue((Centers.at(1)).x);
+        ui->centery2_2->setValue((Centers.at(1)).y);
+        ui->aaxis2_2->setValue(HMA.at(1));
+        ui->baxis2_2->setValue(HMI.at(1));
+        ui->angle2_2->setValue(orientation.at(1));
+    }
+
+
+}

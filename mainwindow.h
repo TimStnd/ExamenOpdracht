@@ -8,6 +8,7 @@
 #include <string>
 #include <QMainWindow>
 #include "ellipseimage.h"
+#include "ellipsfinder.h"
 
 
 #include <QFileDialog>
@@ -55,6 +56,8 @@ private slots:
 
     void on_clear_clicked();
 
+
+    void on_OwnAlgorithm_clicked();
 
 private:
 
