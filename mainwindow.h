@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string>
 #include <QMainWindow>
+#include "ellipseimage.h"
 
 
 #include <QFileDialog>
@@ -50,6 +51,11 @@ private slots:
 
     void on_actionSave_Compound_As_triggered();
 
+    void on_test_clicked();
+
+    void on_clear_clicked();
+
+
 private:
 
 
@@ -59,6 +65,8 @@ private:
     cv::Mat ImageMat;
     cv::Mat DataMat;
     cv::Mat Compound;
+    int amountellipse;
+
 };
 
 #endif // MAINWINDOW_H

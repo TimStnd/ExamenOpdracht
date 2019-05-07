@@ -1,6 +1,7 @@
 #-------------------------------------------------
 #
 
+
 # Project created by QtCreator 2019-04-23T15:25:27
 
 #
@@ -12,12 +13,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ExamenOpdracht
 TEMPLATE = app
-
-
-
-
-
-
 
 
 QMAKE_CXXFLAGS += -std=c++11

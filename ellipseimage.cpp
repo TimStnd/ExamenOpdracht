@@ -76,8 +76,9 @@ DrawEllipse draws a white ellipse on a black background (Cartesian coordinate sy
  	Npoints: the number of signal points forming the ellipse
 */
 
-const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle,  int Npoints)
+const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle,  int Npoints, int &outpoints)
 {
+    outpoints = 0;
 	if ((cenx - image.cols > 0) || (ceny - image.cols > 0))
 	{
 		throw std::invalid_argument("Invalid input in: Image::DrawEllipse \n Input coordinates must be located inside image!");
@@ -116,7 +117,9 @@ const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, d
         	if ((xrot >= 0) && (xrot <= image.cols) && (yrot >= 0) &&  (yrot <= image.rows))
 		{
 			image.at<uchar>(cv::Point(xrot , fabs(yrot - colourimage.rows) )) = 255;
-		}
+        }else{
+             outpoints++;
+        }
 		
 	}
 
