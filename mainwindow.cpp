@@ -170,3 +170,5 @@ void MainWindow::on_actionSave_triggered()
     //Misschien moet hier nog een check gedaan worden? Ik denk het niet, in principe zijn alle checks gedaan bij het openen en aanmaken van currentfile
     cv::imwrite(currentFile, ImageMat);
 }
+
+//TestComment
