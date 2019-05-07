@@ -22,10 +22,10 @@ public:
 private slots:
     void on_drawbutton_clicked();
 
-
     void on_test_clicked();
 
     void on_clear_clicked();
+
 
 private:
     Ui::MainWindow *ui;
