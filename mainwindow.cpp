@@ -123,14 +123,11 @@ void MainWindow::on_actionOpen_triggered()
 
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
 
-    //QByteArray imageFormat = QImageReader::imageFormat(fileName);
+
 
     std::string fileNameString = fileName.toStdString();
     ImageMat = cv::imread(fileNameString);
     if (! ImageMat.empty()){
-
-//        QImage image(fileName);
-//        image.save("Temp.png", "PNG");
 
 
         InitialProcessing();
@@ -153,24 +150,27 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSave_as_triggered()
 {
-    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
+    //Nog een default naam instellen voor de saveas dialoog
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     std::string fileNameString = fileName.toStdString();
-    //cv::imwrite(fileNameString, ImageMat);
-
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
 
     if (fileNameString.find(".") == std::string::npos){
         std::cout << "Standard image format is .png" << std::endl;
         cv::imwrite(fileNameString + ".png", ImageMat);
     }
 
-    else{
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
 
-        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
         cv::imwrite(fileNameString, ImageMat);
     }
 
-    //if (fileNameString.find(".") < std::string::npos)
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+
 
 
 
@@ -179,7 +179,7 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    //Misschien moet hier nog een check gedaan worden? Ik denk het niet, in principe zijn alle checks gedaan bij het openen en aanmaken van currentfile
+
     cv::imwrite(currentFile, ImageMat);
 }
 
@@ -187,10 +187,12 @@ void MainWindow::on_actionSave_Gray_As_triggered()
 {
 
 
-    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
+    //Nog een default naam instellen voor de saveas dialoog
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     std::string fileNameString = fileName.toStdString();
-    //cv::imwrite(fileNameString, ImageMat);
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
 
 
     if (fileNameString.find(".") == std::string::npos){
@@ -198,13 +200,16 @@ void MainWindow::on_actionSave_Gray_As_triggered()
         cv::imwrite(fileNameString + ".png", DataMat);
     }
 
-    else{
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
 
-        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+
         cv::imwrite(fileNameString, DataMat);
     }
 
-    //if (fileNameString.find(".") < std::string::npos)
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
 
 
 }
@@ -213,13 +218,14 @@ void MainWindow::on_actionSave_Compound_As_triggered()
 {
     cv::Mat DataColor;
     cv::cvtColor(DataMat, DataColor, CV_GRAY2BGR);
-    cv::Mat Compound = ImageMat + DataColor;
+    Compound = ImageMat + DataColor;
 
 
-    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
+    //Nog een default naam instellen voor de saveas dialoog
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     std::string fileNameString = fileName.toStdString();
-    //cv::imwrite(fileNameString, ImageMat);
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
 
 
     if (fileNameString.find(".") == std::string::npos){
@@ -227,12 +233,14 @@ void MainWindow::on_actionSave_Compound_As_triggered()
         cv::imwrite(fileNameString + ".png", Compound);
     }
 
-    else{
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
 
-        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+
         cv::imwrite(fileNameString, Compound);
     }
 
-    //if (fileNameString.find(".") < std::string::npos)
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
 
 }

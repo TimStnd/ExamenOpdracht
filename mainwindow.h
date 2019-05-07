@@ -58,6 +58,7 @@ private:
     std::string currentFile;
     cv::Mat ImageMat;
     cv::Mat DataMat;
+    cv::Mat Compound;
 };
 
 #endif // MAINWINDOW_H
