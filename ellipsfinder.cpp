@@ -1,10 +1,10 @@
 #include "ellipsfinder.h"
 
 
-Ellipsfinder::Ellipsfinder(cv::Mat inputimage, unsigned minhMA, unsigned minhMI, unsigned th10):IMrows(inputimage.rows),IMcols(inputimage.cols)
+Ellipsfinder::Ellipsfinder(cv::Mat inputimage, unsigned minMA, unsigned minhMI, unsigned th10):IMrows(inputimage.rows),IMcols(inputimage.cols)
 {
     Pixels.clear();
-    thresholdstep4=minhMA;
+    thresholdstep4=minMA;
     thresholdstep6=minhMI;
     thresholdstep10=th10;
     for(int r=0;r<inputimage.rows;++r)
@@ -82,7 +82,7 @@ void Ellipsfinder::Algoritm()
                     ellipsCenters.push_back(getCenter(PrimaryPixel,CurrentPixel));
                     ellipshMA.push_back(static_cast<unsigned>(round(getHalflengthMaA(PrimaryPixel,CurrentPixel))));
                     ellipshMI.push_back(b);
-                    ellipsoriantations.push_back(getOrientation(PrimaryPixel,CurrentPixel));
+                    ellipsorientations.push_back(getOrientation(PrimaryPixel,CurrentPixel));
 
 //                    std::cout<<"max="<<*itermax<<std::endl;
 //                    std::cout<<"a="<<getHalflengthMaA(PrimaryPixel,CurrentPixel)<< std::endl;
@@ -99,12 +99,12 @@ void Ellipsfinder::Algoritm()
 
 }
 
-void Ellipsfinder::getEllipses(std::vector<cv::Point> &Centers, std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &oriantation)
+void Ellipsfinder::getEllipses(std::vector<cv::Point> &Centers, std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &orientation)
 {
     Centers=ellipsCenters;
     hMA=ellipshMA;
     hMI=ellipshMI;
-    oriantation=ellipsoriantations;
+    orientation=ellipsorientations;
 }
 
 cv::Point Ellipsfinder::getCenter(const cv::Point &Pone, const cv::Point &Ptwo) const
@@ -130,7 +130,7 @@ double Ellipsfinder::getOrientation(const cv::Point &Pone, const cv::Point &Ptwo
     }
 
     if(Ptwo.x==Pone.x) return CV_PI/2;
-    return atan((Ptwo.y-Pone.y)/(Ptwo.x-Pone.x));
+    return atan2((Ptwo.y-Pone.y),(Ptwo.x-Pone.x));
 }
 
 double Ellipsfinder::getCosTau(const double a,const cv::Point& Pzero,const cv::Point &Ptwo, const cv::Point &Prandom) const
