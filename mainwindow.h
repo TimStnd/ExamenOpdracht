@@ -41,10 +41,13 @@ private slots:
 
     void on_actionSave_as_triggered();
 
+    void on_actionSave_triggered();
+
 private:
     Ui::MainWindow *ui;
-    QString currentFile;
+    std::string currentFile;
     cv::Mat ImageMat;
+    cv::Mat DataMat;
 };
 
 #endif // MAINWINDOW_H

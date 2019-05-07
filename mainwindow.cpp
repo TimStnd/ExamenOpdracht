@@ -106,21 +106,24 @@ void MainWindow::on_drawbutton_clicked()
 void MainWindow::on_actionOpen_triggered()
 {
 
+    //Nog het edge detection en blurring doen
+    //Functie nog lichtjes opkuisen, er kunnen nog wat variabelen weggelaten worden denk ik
+
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
 
     QByteArray imageFormat = QImageReader::imageFormat(fileName);
 
-    if (! imageFormat.isEmpty()){
+    std::string fileNameString = fileName.toStdString();
+    ImageMat = cv::imread(fileNameString);
+    if (! ImageMat.empty()){
 
-        QImage image(fileName);
-        image.save("Temp.png", "PNG");
-        ImageMat = cv::imread("Temp.png");
-        std::remove("Temp.png");
+//        QImage image(fileName);
+//        image.save("Temp.png", "PNG");
 
+        cv::resize(ImageMat, ImageMat, cv::Size(256, 256));
+        cv::cvtColor(ImageMat, DataMat, CV_BGR2GRAY);
 
-        currentFile = fileName;
-
-        std::string fileNameString = fileName.toStdString();
+        currentFile = fileNameString;
 
         const unsigned startDelimiter = fileNameString.find_last_of("/");
         const unsigned stopDelimiter = fileNameString.find_last_of(".");
@@ -138,24 +141,21 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSave_as_triggered()
 {
+    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
-
-
-    cv::imwrite("Temp.png", ImageMat);
-    QImage image("Temp.png");
-    std::remove("Temp.png");
     std::string fileNameString = fileName.toStdString();
+    //cv::imwrite(fileNameString, ImageMat);
 
 
     if (fileNameString.find(".") == std::string::npos){
         std::cout << "Standard image format is .png" << std::endl;
-        image.save(fileName, "PNG");
+        cv::imwrite(fileNameString + ".png", ImageMat);
     }
 
     else{
 
-        std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
-        image.save(fileName, extension.c_str());
+        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        cv::imwrite(fileNameString, ImageMat);
     }
 
     //if (fileNameString.find(".") < std::string::npos)
@@ -163,4 +163,10 @@ void MainWindow::on_actionSave_as_triggered()
 
 
 
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    //Misschien moet hier nog een check gedaan worden? Ik denk het niet, in principe zijn alle checks gedaan bij het openen en aanmaken van currentfile
+    cv::imwrite(currentFile, ImageMat);
 }
