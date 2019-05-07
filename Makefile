@@ -13,7 +13,7 @@ all:main
 
 
 main: main.cpp
-	$(COMPILER) ellipsfinder.h ellipsfinder.cpp main.cpp -o run ${LDLIBS} ${CPPFLAGS}
+	$(COMPILER) ellipsfinder.h ellipsfinder.cpp ellipseimage.h ellipseimage.cpp main.cpp -o run ${LDLIBS} ${CPPFLAGS}
 
 clean : 
 	rm run

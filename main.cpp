@@ -10,14 +10,17 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+using namespace std;
 
 //OpenCV
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 using namespace cv;
-//my headers
+//Project headers
 #include "ellipsfinder.h"
+#include "ellipseimage.h"
+
 
 
 int main(int argc, char *argv[])
@@ -30,8 +33,25 @@ int main(int argc, char *argv[])
 
     image.at<uchar>(25,20)=25;
 
-    Ellipsfinder test(image);
+    EllipseImage testdrawing(256,256);
+    testdrawing.DrawEllipse(128,128,100,50,0,500);
+    Mat imagetestdrawing= testdrawing.GetImage();
+    //testdrawing.ShowImage();
 
+    Ellipsfinder test(imagetestdrawing,50,1,100);
+
+    vector<Point> centers;
+    vector<unsigned> MA;
+    vector<unsigned> MI;
+    vector<double> ori;
+    test.getEllipses(centers,MA,MI,ori);
+    for(unsigned i=0;i<centers.size();++i)
+    {
+        cout<<"center:"<<centers.at(i)<<endl;
+        cout<<"MA:"<<MA.at(i)<<endl;
+        cout<<"MI:"<<MI.at(i)<<endl;
+        cout<<"oriantation:"<<ori.at(i)<<endl;
+    }
 
 
 
