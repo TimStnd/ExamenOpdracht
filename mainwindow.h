@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string>
 #include <QMainWindow>
 
@@ -17,6 +18,8 @@
 #include <QImageReader>
 
 #include <opencv2/opencv.hpp>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
 
 
@@ -43,7 +46,14 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_actionSave_Gray_As_triggered();
+
+    void on_actionSave_Compound_As_triggered();
+
 private:
+
+
+    void InitialProcessing();
     Ui::MainWindow *ui;
     std::string currentFile;
     cv::Mat ImageMat;

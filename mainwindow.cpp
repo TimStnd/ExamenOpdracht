@@ -100,7 +100,19 @@ void MainWindow::on_drawbutton_clicked()
 }
 
 
+void MainWindow::InitialProcessing(){
 
+
+    const int thresh = 100;
+    cv::resize(ImageMat, ImageMat, cv::Size(256, 256));
+    cv::cvtColor(ImageMat, DataMat, CV_BGR2GRAY);
+    cv::blur(DataMat, DataMat, cv::Size(3,3));
+
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+
+    cv::Canny(DataMat, DataMat, thresh, thresh*2, 3);
+}
 
 
 void MainWindow::on_actionOpen_triggered()
@@ -111,7 +123,7 @@ void MainWindow::on_actionOpen_triggered()
 
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
 
-    QByteArray imageFormat = QImageReader::imageFormat(fileName);
+    //QByteArray imageFormat = QImageReader::imageFormat(fileName);
 
     std::string fileNameString = fileName.toStdString();
     ImageMat = cv::imread(fileNameString);
@@ -120,8 +132,8 @@ void MainWindow::on_actionOpen_triggered()
 //        QImage image(fileName);
 //        image.save("Temp.png", "PNG");
 
-        cv::resize(ImageMat, ImageMat, cv::Size(256, 256));
-        cv::cvtColor(ImageMat, DataMat, CV_BGR2GRAY);
+
+        InitialProcessing();
 
         currentFile = fileNameString;
 
@@ -171,4 +183,56 @@ void MainWindow::on_actionSave_triggered()
     cv::imwrite(currentFile, ImageMat);
 }
 
-//TestComment
+void MainWindow::on_actionSave_Gray_As_triggered()
+{
+
+
+    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    //cv::imwrite(fileNameString, ImageMat);
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", DataMat);
+    }
+
+    else{
+
+        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        cv::imwrite(fileNameString, DataMat);
+    }
+
+    //if (fileNameString.find(".") < std::string::npos)
+
+
+}
+
+void MainWindow::on_actionSave_Compound_As_triggered()
+{
+    cv::Mat DataColor;
+    cv::cvtColor(DataMat, DataColor, CV_GRAY2BGR);
+    cv::Mat Compound = ImageMat + DataColor;
+
+
+    //Nog checks doen op mogelijke formaten, en een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    //cv::imwrite(fileNameString, ImageMat);
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", Compound);
+    }
+
+    else{
+
+        //std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        cv::imwrite(fileNameString, Compound);
+    }
+
+    //if (fileNameString.find(".") < std::string::npos)
+
+}
