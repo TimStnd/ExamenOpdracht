@@ -60,7 +60,7 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
                         {   
                             //double oriantation=getOrientation(PrimaryPixel,CurrentPixel);
                             unsigned MiA=static_cast<unsigned>(round(getHalflengthMiA(MA,Center,CurrentPixel,OtherPixel)));
-                            if(MiA>0&&MiA<accumulatorsize-1)
+                            if(MiA>minhMI&&MiA<accumulatorsize-1)
                             {
                                 ++accumulator.at(MiA-1);//increasing accumulator
                                 (accumulatorPoints.at(MiA-1)).push_back(OPI);//saving Pixel index so it can be deleted later
