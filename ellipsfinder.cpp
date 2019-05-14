@@ -36,9 +36,9 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
 
         if(!Pointsonellips.count(PPI))//Check if the point is already on an ellips
         {
-            for(unsigned CPI=PPI+1;CPI<leftoverPixels.size();++CPI)//CPI current pixel index
+            for(unsigned CPI=PPI+1;CPI<Pixels.size();++CPI)//CPI current pixel index
             {
-                const cv::Point &CurrentPixel=leftoverPixels.at(CPI);
+                const cv::Point &CurrentPixel=Pixels.at(CPI);
                 //std::cout<<"CPI"<<CurrentPixel<<std::endl;
 
 
