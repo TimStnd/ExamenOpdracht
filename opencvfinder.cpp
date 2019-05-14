@@ -35,16 +35,22 @@ vector<float> opencvfinder::getelips(int threshold)
 
            ;
       //*// DATA OUTPUT
+
+           cout<<box.center.x<<endl;
+           cout<<box.center.y<<endl;
+
+
+
            data.push_back(box.center.x);
            data.push_back(box.center.y);
 
            if(box.size.width<box.size.height)
            {
-               data.push_back(box.size.height);
-               data.push_back(box.size.width);
+               data.push_back(box.size.height/2);
+               data.push_back(box.size.width/2);
            } else{
-               data.push_back(box.size.width);
-               data.push_back(box.size.height);
+               data.push_back(box.size.width/2);
+               data.push_back(box.size.height/2);
            }
 
            if(box.angle>90)
