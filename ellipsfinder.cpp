@@ -38,14 +38,14 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
 
         if(!Pointsonellips.count(PPI))//Check if the point is already on an ellips
         {
-            for(unsigned CPI=PPI+1;CPI<Pixels.size();++CPI)//CPI current pixel index
+            for(unsigned CPI=PPI+1;CPI<leftoverPixels.size();++CPI)//CPI current pixel index
             {
                 std::vector<unsigned> accumulator(round(sqrt(pow(IMrows,2)+pow(IMcols,2))/2),0);//vector with the size of the diagonal/2 in pixels each vector position is the size of minor axis-1
                                                                                                 //this is the maximum and ellips could realisticly be
                 std::vector<std::vector<unsigned>> accumulatorPoints;//vector of vectors with all the indices of the point that belong to the corresponding minor axis and ellips
                 accumulatorPoints.resize(accumulator.size());
 
-                const cv::Point &CurrentPixel=Pixels.at(CPI);
+                const cv::Point &CurrentPixel=leftoverPixels.at(CPI);
                 //std::cout<<"CPI"<<CurrentPixel<<std::endl;
 
                 if(!Pointsonellips.count(CPI) && getDist(PrimaryPixel,CurrentPixel)>=minMA)//check if CP is not already on ellips && check if dist>thershold
