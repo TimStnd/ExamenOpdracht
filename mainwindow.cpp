@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <string>
 #include <QString>
+#include "opencvfinder.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,8 +34,9 @@ void MainWindow::on_drawbutton_clicked()
     imageellipse.ClearColourImage();
     imageellipse.ClearImage();
     amountellipse=0;
-    // get and initialize the variables from the ui
 
+
+    // get and initialize the variables from the ui
     int centerx1=ui->centerx1->value();
     int centery1=ui->centery1->value();
     int aaxis1=ui->aaxis1->value();
@@ -79,6 +81,8 @@ void MainWindow::on_drawbutton_clicked()
 
     int outpoints=0;
 
+
+    //check if there are values added to draw the ellipse and then draw the ellipse
     if(aaxis1>0 && baxis1>0 && amount1>0)
     {
         imageellipse.DrawEllipse(centerx1,centery1,aaxis1,baxis1,angle1,amount1,outpoints);
@@ -86,9 +90,17 @@ void MainWindow::on_drawbutton_clicked()
     } else if(aaxis1==0 && baxis1==0 && amount1==0){
 
     }else{
+        //if they give one value but not the others give a error message
         ui->logbox->append("Ellipse 1: the axes and amount of points must be greater than zero");
     }
 
+    //check if the a-axis is greater then the b-axis if otherwise give an error message
+    if(baxis1>aaxis1)
+    {
+        ui->logbox->append("Ellipse 1: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
+    }
+
+    //if the ellipse is drawn for a part outside the window give an errormessage
     if(outpoints>0)
     {
         std::string outpointsstring= std::to_string(outpoints);
@@ -98,6 +110,8 @@ void MainWindow::on_drawbutton_clicked()
         outpoints=0;
     }
 
+
+    //do the same for the other ellipses
     if(aaxis2>0 && baxis2>0 && amount2>0)
     {
         imageellipse.DrawEllipse(centerx2,centery2,aaxis2,baxis2,angle2,amount2,outpoints);
@@ -106,6 +120,11 @@ void MainWindow::on_drawbutton_clicked()
 
     }else{
         ui->logbox->append("Ellipse 2: the axes and amount of points must be greater than zero");
+    }
+
+    if(baxis2>aaxis2)
+    {
+        ui->logbox->append("Ellipse 2: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
     }
 
     if(outpoints>0)
@@ -127,6 +146,11 @@ void MainWindow::on_drawbutton_clicked()
         ui->logbox->append("Ellipse 3: the axes and amount of points must be greater than zero");
     }
 
+    if(baxis3>aaxis3)
+    {
+        ui->logbox->append("Ellipse 3: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
+    }
+
     if(outpoints>0)
     {
         std::string outpointsstring= std::to_string(outpoints);
@@ -144,6 +168,11 @@ void MainWindow::on_drawbutton_clicked()
 
     }else{
         ui->logbox->append("Ellipse 4: the axes and amount of points must be greater than zero");
+    }
+
+    if(baxis4>aaxis4)
+    {
+        ui->logbox->append("Ellipse 4: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
     }
 
     if(outpoints>0)
@@ -166,6 +195,11 @@ void MainWindow::on_drawbutton_clicked()
     }
 
 
+    if(baxis5>aaxis5)
+    {
+        ui->logbox->append("Ellipse 5: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
+    }
+
     if(outpoints>0)
     {
         std::string outpointsstring= std::to_string(outpoints);
@@ -187,6 +221,11 @@ void MainWindow::on_drawbutton_clicked()
     }
 
 
+    if(baxis6>aaxis6)
+    {
+        ui->logbox->append("Ellipse 6: the a-axis is smaller then the b-axis, so the found axes and angle will differ from the inputed axes and angle ");
+    }
+
     if(outpoints>0)
     {
         std::string outpointsstring= std::to_string(outpoints);
@@ -196,15 +235,22 @@ void MainWindow::on_drawbutton_clicked()
         outpoints=0;
     }
 
+
     ImageMat=imageellipse.GetColourImage();
     DataMat=imageellipse.GetImage();
 
+
+
+    //check if ellipses were dran if not give error message
     if(amountellipse==0)
     {
         ui->logbox->append("No ellipses were drawn, check if the axes and amount of points are greater than zero");
     }
 
-    //std::cout<<*outpoints<<std::endl;
+
+
+    //get the image with the drawn images and draw it
+    ImageMat=imageellipse.GetImage();
 
     cv::Mat img=ImageMat;
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
@@ -213,12 +259,38 @@ void MainWindow::on_drawbutton_clicked()
 
 void MainWindow::on_test_clicked()
 {
-    ui->logbox->append("test");
+    //ui->resultsboxangle->append("test");
+    //ui->resultsboxcenterx->append("test");
 }
 
 void MainWindow::on_clear_clicked()
 {
     ui->logbox->setText("");
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+    ui->resultsbox->append("found ellipses | center x | center y | a-axis | b-axis | angle (rad)");
+    std::vector<float> data;
+    int threshold =ui->thresholdopencv->value();
+    opencvfinder test(ImageMat);
+    data=test.getelips(threshold);
+
+    for(int j=0; j<data.size()/5; j++)
+    {
+        std::string numberstring= std::to_string(j+1);
+        std::string centerxstring= std::to_string(data[0+j*5]);
+        std::string centerystring= std::to_string(data[1+j*5]);
+        std::string aaxisstring= std::to_string(data[2+j*5]);
+        std::string baxisstring= std::to_string(data[3+j*5]);
+        std::string anglestring= std::to_string(data[4+j*5]);
+
+        std::string logstring=numberstring+" | "+centerxstring+" | "+centerystring+" | "+aaxisstring+" | "+baxisstring+" | "+anglestring;
+        QString qstr = QString::fromStdString(logstring);
+        ui->resultsbox->append(qstr);
+    }
 }
 
 
@@ -476,5 +548,6 @@ void MainWindow::on_OwnAlgorithm_clicked()
     ui->picture->setPixmap(QPixmap::fromImage(QImage(ImageMat.data, ImageMat.cols, ImageMat.rows, ImageMat.step, QImage::Format_RGB888)));
 
 }
+
 
 
