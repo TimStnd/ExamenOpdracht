@@ -11,6 +11,7 @@
 #include <string>
 #include <iomanip>
 #include <cstdlib>
+#include <time.h>
 using namespace std;
 
 //OpenCV
@@ -54,6 +55,7 @@ int main(int argc, char *argv[])
 
     EllipseImage testdrawing(256,256);
     testdrawing.DrawEllipse(xcenter,ycenter,a,b,angle,points);
+    testdrawing.DrawEllipse(75,75,50,40,0,500);
     Mat imagetestdrawing= testdrawing.GetImage();
     testdrawing.ShowImage();
 
@@ -64,13 +66,18 @@ int main(int argc, char *argv[])
     vector<unsigned> MA;
     vector<unsigned> MI;
     vector<double> ori;
-    test.getEllipses(centers,MA,MI,ori,50,10,100);
+
+    clock_t start,end;
+    start=clock();
+    test.getEllipses(centers,MA,MI,ori,20,10,50);
+    end=clock();
+    cout<< "my implementation takes: "<<std::setprecision(5) << static_cast<double>(end-start)/CLOCKS_PER_SEC*1E+3<< " milli seconds." << "\n\n";
     for(unsigned i=0;i<centers.size();++i)
     {
         cout<<"center:"<<centers.at(i)<<endl;
         cout<<"MA:"<<MA.at(i)<<endl;
         cout<<"MI:"<<MI.at(i)<<endl;
-        cout<<"oriantation:"<<ori.at(i)<<endl;
+        cout<<"oriantation:"<<CV_PI-ori.at(i)<<endl;
     }
 
 
