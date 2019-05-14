@@ -1,5 +1,3 @@
-
-
 #include "ellipseimage.h"
 
 // Constructor
@@ -20,7 +18,7 @@ EllipseImage::~EllipseImage()
 
 
 // ShowImage displays the (coloured) image in a new window
-void EllipseImage::ShowImage()
+ void EllipseImage::ShowImage() const
 {
 	if ( !image.data )
     	{
@@ -76,9 +74,8 @@ DrawEllipse draws a white ellipse on a black background (Cartesian coordinate sy
  	Npoints: the number of signal points forming the ellipse
 */
 
-void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle,  int Npoints, int &outpoints)
+void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle, int &OutPoints,  int Npoints)
 {
-    outpoints = 0;
 	if ((cenx - image.cols > 0) || (ceny - image.cols > 0))
 	{
 		throw std::invalid_argument("Invalid input in: Image::DrawEllipse \n Input coordinates must be located inside image!");
@@ -117,10 +114,11 @@ void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double 
         	if ((xrot >= 0) && (xrot <= image.cols) && (yrot >= 0) &&  (yrot <= image.rows))
 		{
 			image.at<uchar>(cv::Point(xrot , fabs(yrot - colourimage.rows) )) = 255;
-        }else{
-             outpoints++;
-        }
-		
+		}
+		else
+		{
+			OutPoints++;
+		}
 	}
 
 	cv::Mat tempim = image.clone();
@@ -128,6 +126,13 @@ void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double 
  	colourimage += tempim;
 }
 
+void EllipseImage::DrawLine(int xstart, int ystart, int xend, int yend)
+{
+	cv::Point startpt(xstart, ystart);
+	cv::Point endpt(xend, yend);
+	line(image, startpt, endpt, cv::Scalar(255), 1, 1); 
+	line(colourimage, startpt, endpt, cv::Scalar(255,255,255), 1, 1); 
+}
 
 // DrawNoise draws given number of noise points on the image
 void EllipseImage::DrawNoise(int Noisepoints)
@@ -174,7 +179,18 @@ void EllipseImage::ClearColourImage()
 	colourimage = cv::Mat::zeros(colourimage.size(), CV_8UC3);
 }
 
+void EllipseImage::ReadImage(cv::Mat inputMat)
+{
+	if (inputMat.channels() == 3)
+	{
+	colourimage = inputMat;
+	}
+	else
+	{
+		std::cout << "Image is not a 3 channel mat object! No image loaded." << std::endl;	
+	}
 
 
+}
 
 

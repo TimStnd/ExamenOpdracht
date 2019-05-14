@@ -19,14 +19,16 @@ public:
 	EllipseImage(int = 256, int = 256); 		// constructor
 	~EllipseImage(); 				//destructor
 	
-    void DrawEllipse(int, int, int, int, double, int, int &);
+    void DrawLine(int xstart, int ystart, int xend, int yend);
+    void DrawEllipse(int, int, int, int, double, int &, int = 500);
     void DrawColouredEllipse(int, int, int, int, double);
     void DrawNoise(int);
-    void ShowImage();
+    void ShowImage() const;
     const cv::Mat GetImage() const;
     const cv::Mat GetColourImage() const;
     void ClearImage();
     void ClearColourImage();
+    void ReadImage(cv::Mat);
 
 
 };

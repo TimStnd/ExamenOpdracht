@@ -59,16 +59,21 @@ private slots:
 
     void on_OwnAlgorithm_clicked();
 
+    void on_ColourKnop_clicked();
+
 private:
 
 
     void InitialProcessing();
     Ui::MainWindow *ui;
-    std::string currentFile;
+    std::string currentFile = "NotAFile";
     cv::Mat ImageMat;
     cv::Mat DataMat;
     cv::Mat Compound;
+    Ellipsfinder Finder;
     int amountellipse;
+
+    EllipseImage imageellipse;
 
 };
 
