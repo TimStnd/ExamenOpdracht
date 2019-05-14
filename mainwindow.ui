@@ -887,6 +887,29 @@
      </item>
     </layout>
    </widget>
+   <widget class="QSpinBox" name="noisepoints">
+    <property name="geometry">
+     <rect>
+      <x>1300</x>
+      <y>210</y>
+      <width>131</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="drawrandom">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>370</y>
+      <width>101</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>draw noise</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

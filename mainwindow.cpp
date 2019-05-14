@@ -294,6 +294,12 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
+void MainWindow::on_drawrandom_clicked()
+{
+
+}
+
+
 void MainWindow::InitialProcessing(){
 
 
@@ -548,6 +554,7 @@ void MainWindow::on_OwnAlgorithm_clicked()
     ui->picture->setPixmap(QPixmap::fromImage(QImage(ImageMat.data, ImageMat.cols, ImageMat.rows, ImageMat.step, QImage::Format_RGB888)));
 
 }
+
 
 
 

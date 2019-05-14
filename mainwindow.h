@@ -60,9 +60,13 @@ private slots:
     void on_pushButton_clicked();
 
 
+    void on_drawrandom_clicked();
+
+
     void on_OwnAlgorithm_clicked();
 
  
+
 
 private:
 
