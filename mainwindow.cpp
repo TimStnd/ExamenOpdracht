@@ -283,3 +283,8 @@ void MainWindow::on_pushButton_clicked()
         ui->resultsbox->append(qstr);
     }
 }
+
+void MainWindow::on_drawrandom_clicked()
+{
+
+}
