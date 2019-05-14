@@ -74,7 +74,7 @@ DrawEllipse draws a white ellipse on a black background (Cartesian coordinate sy
  	Npoints: the number of signal points forming the ellipse
 */
 
-void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle, int &OutPoints,  int Npoints)
+void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle,  int Npoints, int &OutPoints)
 {
 	if ((cenx - image.cols > 0) || (ceny - image.cols > 0))
 	{

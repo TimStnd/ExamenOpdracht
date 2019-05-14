@@ -52,7 +52,6 @@ private slots:
 
     void on_actionSave_Compound_As_triggered();
 
-    void on_test_clicked();
 
     void on_clear_clicked();
 

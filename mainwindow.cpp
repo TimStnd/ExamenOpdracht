@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-//Test
+
 
 MainWindow::~MainWindow()
 {
@@ -31,8 +31,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_drawbutton_clicked()
 {
     ui->logbox->setText("");
-    imageellipse.ClearColourImage();
     imageellipse.ClearImage();
+    imageellipse.ClearColourImage();
     amountellipse=0;
 
 
@@ -43,6 +43,7 @@ void MainWindow::on_drawbutton_clicked()
     int baxis1=ui->baxis1->value();
     double angle1=ui->angle1->value();
     int amount1=ui->amount1->value();
+    std::cout << amount1 << std::endl;
 
     int centerx2=ui->centerx2->value();
     int centery2=ui->centery2->value();
@@ -85,7 +86,8 @@ void MainWindow::on_drawbutton_clicked()
     //check if there are values added to draw the ellipse and then draw the ellipse
     if(aaxis1>0 && baxis1>0 && amount1>0)
     {
-        imageellipse.DrawEllipse(centerx1,centery1,aaxis1,baxis1,angle1,amount1,outpoints);
+
+        imageellipse.DrawEllipse(centerx1,centery1,aaxis1,baxis1,angle1,amount1, outpoints);
         amountellipse++;
     } else if(aaxis1==0 && baxis1==0 && amount1==0){
 
@@ -249,19 +251,14 @@ void MainWindow::on_drawbutton_clicked()
 
 
 
-    //get the image with the drawn images and draw it
-    ImageMat=imageellipse.GetImage();
+
 
     cv::Mat img=ImageMat;
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 }
 
 
-void MainWindow::on_test_clicked()
-{
-    //ui->resultsboxangle->append("test");
-    //ui->resultsboxcenterx->append("test");
-}
+
 
 void MainWindow::on_clear_clicked()
 {
@@ -271,14 +268,14 @@ void MainWindow::on_clear_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    ui->resultsbox->setText("");
     ui->resultsbox->append("found ellipses | center x | center y | a-axis | b-axis | angle (rad)");
     std::vector<float> data;
     int threshold =ui->thresholdopencv->value();
-    opencvfinder test(ImageMat);
+    opencvfinder test(DataMat);
     data=test.getelips(threshold);
 
-    for(int j=0; j<data.size()/5; j++)
+    for(size_t j=0; j<data.size()/5; j++)
     {
         std::string numberstring= std::to_string(j+1);
         std::string centerxstring= std::to_string(data[0+j*5]);
@@ -524,23 +521,7 @@ void MainWindow::on_OwnAlgorithm_clicked()
 
     Finder.getEllipses(Centers, HMA, HMI, orientation, minA, minB, AccThresh);
 
-    if (Centers.size() >= 1){
 
-        ui->centerx1_2->setValue((Centers.at(0)).x);
-        ui->centery1_2->setValue((Centers.at(0)).y);
-        ui->aaxis1_2->setValue(HMA.at(0));
-        ui->baxis1_2->setValue(HMI.at(0));
-        ui->angle1_2->setValue(orientation.at(0));
-    }
-
-    if (Centers.size() >= 2){
-
-        ui->centerx2_2->setValue((Centers.at(1)).x);
-        ui->centery2_2->setValue((Centers.at(1)).y);
-        ui->aaxis2_2->setValue(HMA.at(1));
-        ui->baxis2_2->setValue(HMI.at(1));
-        ui->angle2_2->setValue(orientation.at(1));
-    }
 
     imageellipse.ReadImage(ImageMat);
 

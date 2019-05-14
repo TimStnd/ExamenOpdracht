@@ -20,7 +20,7 @@ public:
 	~EllipseImage(); 				//destructor
 	
     void DrawLine(int xstart, int ystart, int xend, int yend);
-    void DrawEllipse(int, int, int, int, double, int &, int = 500);
+    void DrawEllipse(int, int, int, int, double, int , int &);
     void DrawColouredEllipse(int, int, int, int, double);
     void DrawNoise(int);
     void ShowImage() const;
