@@ -35,6 +35,7 @@ private:
     Ui::MainWindow *ui;
     cv::Mat ImageMat;
     int amountellipse;
+    EllipseImage imageellipse;
 };
 
 #endif // MAINWINDOW_H

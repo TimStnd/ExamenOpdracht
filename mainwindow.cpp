@@ -27,9 +27,10 @@ MainWindow::~MainWindow()
 void MainWindow::on_drawbutton_clicked()
 {
     ui->logbox->setText("");
-    EllipseImage imageellipse(256,256);
+
     amountellipse=0;
 
+    imageellipse.ClearImage();
 
     // get and initialize the variables from the ui
     int centerx1=ui->centerx1->value();
@@ -286,5 +287,15 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_drawrandom_clicked()
 {
+     imageellipse.ClearImage();
+
+    int noisepoints=ui->noisepoints->value();
+    imageellipse.DrawNoise(noisepoints);
+
+    ImageMat=imageellipse.GetImage();
+
+    cv::Mat img=ImageMat;
+    cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
+    ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 
 }

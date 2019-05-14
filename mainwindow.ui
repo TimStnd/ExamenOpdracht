@@ -513,6 +513,9 @@
       <height>27</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>1000000</number>
+    </property>
    </widget>
    <widget class="QPushButton" name="drawrandom">
     <property name="geometry">
