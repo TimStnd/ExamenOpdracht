@@ -10,13 +10,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     ui->picture->setFixedWidth(256);
     ui->picture->setFixedWidth(256);
 
     cv::Mat img=ImageMat;
     cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
+
 }
+
+//Test
 
 MainWindow::~MainWindow()
 {
@@ -27,7 +31,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_drawbutton_clicked()
 {
     ui->logbox->setText("");
-    EllipseImage imageellipse(256,256);
+    imageellipse.ClearColourImage();
+    imageellipse.ClearImage();
     amountellipse=0;
 
 
@@ -231,6 +236,10 @@ void MainWindow::on_drawbutton_clicked()
     }
 
 
+    ImageMat=imageellipse.GetColourImage();
+    DataMat=imageellipse.GetImage();
+
+
 
     //check if ellipses were dran if not give error message
     if(amountellipse==0)
@@ -244,7 +253,6 @@ void MainWindow::on_drawbutton_clicked()
     ImageMat=imageellipse.GetImage();
 
     cv::Mat img=ImageMat;
-    cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 }
 
@@ -259,6 +267,7 @@ void MainWindow::on_clear_clicked()
 {
     ui->logbox->setText("");
 }
+
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -284,7 +293,268 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
+
 void MainWindow::on_drawrandom_clicked()
 {
 
 }
+
+
+void MainWindow::InitialProcessing(){
+
+
+    const int thresh = 100;
+    cv::resize(ImageMat, ImageMat, cv::Size(256, 256));
+    cv::cvtColor(ImageMat, DataMat, CV_BGR2GRAY);
+    cv::blur(DataMat, DataMat, cv::Size(3,3));
+
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+
+    cv::Canny(DataMat, DataMat, thresh, thresh*2, 3);
+}
+
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+    //Nog het edge detection en blurring doen
+    //Functie nog lichtjes opkuisen, er kunnen nog wat variabelen weggelaten worden denk ik
+
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+
+
+
+    std::string fileNameString = fileName.toStdString();
+    ImageMat = cv::imread(fileNameString);
+    cv::cvtColor(ImageMat, ImageMat, CV_RGB2BGR);
+    if (! ImageMat.empty()){
+
+
+        InitialProcessing();
+
+        currentFile = fileNameString;
+
+        const unsigned startDelimiter = fileNameString.find_last_of("/");
+        const unsigned stopDelimiter = fileNameString.find_last_of(".");
+
+        std::string NameString = fileNameString.substr(startDelimiter + 1, stopDelimiter - startDelimiter - 1);
+
+        setWindowTitle(QString::fromStdString(NameString));
+
+        cv::Mat img=ImageMat;
+        ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
+    }
+    else {
+        std::cerr << "This image format is not supported." << std::endl;
+    }
+
+
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", ImageMat);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+        cv::imwrite(fileNameString, ImageMat);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+
+
+
+
+
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+    if (currentFile != "NotAFile" ){
+        cv::imwrite(currentFile, ImageMat);
+    }
+    else {
+
+        QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+        std::string fileNameString = fileName.toStdString();
+        std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+        if (fileNameString.find(".") == std::string::npos){
+            std::cout << "Standard image format is .png" << std::endl;
+            cv::imwrite(fileNameString + ".png", ImageMat);
+        }
+
+        else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+            cv::imwrite(fileNameString, ImageMat);
+        }
+
+        else {
+            std::cout << "This Extension is not supported" << std::endl;
+        }
+
+    }
+}
+
+void MainWindow::on_actionSave_Gray_As_triggered()
+{
+
+
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", DataMat);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+
+        cv::imwrite(fileNameString, DataMat);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+
+
+}
+
+void MainWindow::on_actionSave_Compound_As_triggered()
+{
+    cv::Mat DataColor;
+    cv::cvtColor(DataMat, DataColor, CV_GRAY2BGR);
+    Compound = ImageMat + DataColor;
+
+
+    //Nog een default naam instellen voor de saveas dialoog
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    std::string fileNameString = fileName.toStdString();
+    std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+    std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+
+    if (fileNameString.find(".") == std::string::npos){
+        std::cout << "Standard image format is .png" << std::endl;
+        cv::imwrite(fileNameString + ".png", Compound);
+    }
+
+    else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+
+        cv::imwrite(fileNameString, Compound);
+    }
+
+    else {
+        std::cout << "This Extension is not supported" << std::endl;
+    }
+
+}
+
+
+
+
+
+
+void MainWindow::on_OwnAlgorithm_clicked()
+{
+    //Maak van de variabelen nog veranderlijk via QT
+    Finder.newImage(DataMat);
+    double minA, minB, AccThresh;
+
+
+    if (ui->MinA->value() > 128){
+        ui->logbox->append("The maximum value of min half A cannot be larger than 128");
+        minA = 120;
+    }
+    else {
+        minA = ui->MinA->value();
+    }
+
+    if (ui->MinB->value() > 128) {
+        ui->logbox->append("The maximum value of min half B cannot be larger than 128");
+        minB = 120;
+    }
+    else {
+        minB = ui->MinB->value();
+    }
+
+    if (minA < minB){
+        ui->logbox->append("A should be larger than B. Since the minimums are switched, they will be switched again");
+
+        minA += minB;
+        minB = minA - minB;
+        minA -= minB;
+
+    }
+
+    if (ui->AccThresh->value() == 0){
+        ui->logbox->append("Accumulator Threshold must be a strictly positive number. Defaulting to 100.");
+        AccThresh = 150;
+    }
+    else {
+        AccThresh = ui->AccThresh->value();
+    }
+
+    //Ellipsfinder Finder.get(DataMat, minA, maxA, AccThresh);
+
+    std::vector<cv::Point> Centers; std::vector<unsigned> HMA; std::vector<unsigned> HMI; std::vector<double> orientation;
+
+    Finder.getEllipses(Centers, HMA, HMI, orientation, minA, minB, AccThresh);
+
+    if (Centers.size() >= 1){
+
+        ui->centerx1_2->setValue((Centers.at(0)).x);
+        ui->centery1_2->setValue((Centers.at(0)).y);
+        ui->aaxis1_2->setValue(HMA.at(0));
+        ui->baxis1_2->setValue(HMI.at(0));
+        ui->angle1_2->setValue(orientation.at(0));
+    }
+
+    if (Centers.size() >= 2){
+
+        ui->centerx2_2->setValue((Centers.at(1)).x);
+        ui->centery2_2->setValue((Centers.at(1)).y);
+        ui->aaxis2_2->setValue(HMA.at(1));
+        ui->baxis2_2->setValue(HMI.at(1));
+        ui->angle2_2->setValue(orientation.at(1));
+    }
+
+    imageellipse.ReadImage(ImageMat);
+
+    for (size_t counter = 0; counter < Centers.size(); ++counter){
+
+        imageellipse.DrawColouredEllipse(Centers.at(counter).x, 256 - Centers.at(counter).y, HMA.at(counter), HMI.at(counter), orientation.at(counter));
+
+    }
+
+
+    ui->picture->setPixmap(QPixmap::fromImage(QImage(ImageMat.data, ImageMat.cols, ImageMat.rows, ImageMat.step, QImage::Format_RGB888)));
+
+}
+
+
+
+

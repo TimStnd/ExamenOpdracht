@@ -1,5 +1,3 @@
-
-
 #include "ellipseimage.h"
 
 // Constructor
@@ -20,7 +18,7 @@ EllipseImage::~EllipseImage()
 
 
 // ShowImage displays the (coloured) image in a new window
-const void EllipseImage::ShowImage()
+ void EllipseImage::ShowImage() const
 {
 	if ( !image.data )
     	{
@@ -40,7 +38,7 @@ DrawColouredEllipse draws a blue coloured ellipse with a red center location on 
 	xangle: the angle (in radians) between the x-axis and the long axis of the ellipse
 	Npoints: the number of signal points forming the ellipse
 */
-const void EllipseImage::DrawColouredEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle)
+void EllipseImage::DrawColouredEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle)
 {	
 	if ((cenx - image.cols > 0) || (ceny - image.cols > 0))
 	{
@@ -76,9 +74,8 @@ DrawEllipse draws a white ellipse on a black background (Cartesian coordinate sy
  	Npoints: the number of signal points forming the ellipse
 */
 
-const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle,  int Npoints, int &outpoints)
+void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, double xangle, int &OutPoints,  int Npoints)
 {
-    outpoints = 0;
 	if ((cenx - image.cols > 0) || (ceny - image.cols > 0))
 	{
 		throw std::invalid_argument("Invalid input in: Image::DrawEllipse \n Input coordinates must be located inside image!");
@@ -117,10 +114,11 @@ const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, d
         	if ((xrot >= 0) && (xrot <= image.cols) && (yrot >= 0) &&  (yrot <= image.rows))
 		{
 			image.at<uchar>(cv::Point(xrot , fabs(yrot - colourimage.rows) )) = 255;
-        }else{
-             outpoints++;
-        }
-		
+		}
+		else
+		{
+			OutPoints++;
+		}
 	}
 
 	cv::Mat tempim = image.clone();
@@ -128,9 +126,16 @@ const void EllipseImage::DrawEllipse(int cenx, int ceny, int aaxis, int baxis, d
  	colourimage += tempim;
 }
 
+void EllipseImage::DrawLine(int xstart, int ystart, int xend, int yend)
+{
+	cv::Point startpt(xstart, ystart);
+	cv::Point endpt(xend, yend);
+	line(image, startpt, endpt, cv::Scalar(255), 1, 1); 
+	line(colourimage, startpt, endpt, cv::Scalar(255,255,255), 1, 1); 
+}
 
 // DrawNoise draws given number of noise points on the image
-const void EllipseImage::DrawNoise(int Noisepoints)
+void EllipseImage::DrawNoise(int Noisepoints)
 {
 
 	if (Noisepoints <= 0)
@@ -151,30 +156,41 @@ const void EllipseImage::DrawNoise(int Noisepoints)
 }
 
 // GetImage returns the image to the user as a cv::Mat object
-const cv::Mat EllipseImage::GetImage()
+const cv::Mat EllipseImage::GetImage() const
 {
 	return image;
 }
 
 // GetColourImage returns the coloured image to the user as a cv::Mat object
-const cv::Mat EllipseImage::GetColourImage()
+const cv::Mat EllipseImage::GetColourImage() const
 {
 	return colourimage;
 }
 
 // ClearImage resets the cv::Mat object to a single channel black image
-const void EllipseImage::ClearImage()
+void EllipseImage::ClearImage()
 {
 	image = cv::Mat::zeros(image.size(), CV_8UC1);
 }
 
 // ClearColourImage resets the cv::Mat object to a three channel black image
-const void EllipseImage::ClearColourImage()
+void EllipseImage::ClearColourImage()
 {
 	colourimage = cv::Mat::zeros(colourimage.size(), CV_8UC3);
 }
 
+void EllipseImage::ReadImage(cv::Mat inputMat)
+{
+	if (inputMat.channels() == 3)
+	{
+	colourimage = inputMat;
+	}
+	else
+	{
+		std::cout << "Image is not a 3 channel mat object! No image loaded." << std::endl;	
+	}
 
 
+}
 
 
