@@ -121,7 +121,7 @@
        <rect>
         <x>62</x>
         <y>22</y>
-        <width>441</width>
+        <width>446</width>
         <height>171</height>
        </rect>
       </property>
@@ -129,30 +129,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QSpinBox" name="centerx1_2">
+          <widget class="QDoubleSpinBox" name="centerx1_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery1_2">
+          <widget class="QDoubleSpinBox" name="centery1_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis1_2">
+          <widget class="QDoubleSpinBox" name="aaxis1_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis1_2">
+          <widget class="QDoubleSpinBox" name="baxis1_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -168,30 +168,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QSpinBox" name="centerx2_2">
+          <widget class="QDoubleSpinBox" name="centerx2_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery2_2">
+          <widget class="QDoubleSpinBox" name="centery2_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis2_2">
+          <widget class="QDoubleSpinBox" name="aaxis2_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis2_2">
+          <widget class="QDoubleSpinBox" name="baxis2_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -207,30 +207,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QSpinBox" name="centerx3_2">
+          <widget class="QDoubleSpinBox" name="centerx3_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery3_2">
+          <widget class="QDoubleSpinBox" name="centery3_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis3_2">
+          <widget class="QDoubleSpinBox" name="aaxis3_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis3_2">
+          <widget class="QDoubleSpinBox" name="baxis3_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -246,30 +246,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QSpinBox" name="centerx4_2">
+          <widget class="QDoubleSpinBox" name="centerx4_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery4_2">
+          <widget class="QDoubleSpinBox" name="centery4_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis4_2">
+          <widget class="QDoubleSpinBox" name="aaxis4_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis4_2">
+          <widget class="QDoubleSpinBox" name="baxis4_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -285,30 +285,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QSpinBox" name="centerx5_3">
+          <widget class="QDoubleSpinBox" name="centerx5_3">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery5_3">
+          <widget class="QDoubleSpinBox" name="centery5_3">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis5_3">
+          <widget class="QDoubleSpinBox" name="aaxis5_3">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis5_3">
+          <widget class="QDoubleSpinBox" name="baxis5_3">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -324,30 +324,30 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QSpinBox" name="centerx6_2">
+          <widget class="QDoubleSpinBox" name="centerx6_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="centery6_2">
+          <widget class="QDoubleSpinBox" name="centery6_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="aaxis6_2">
+          <widget class="QDoubleSpinBox" name="aaxis6_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="baxis6_2">
+          <widget class="QDoubleSpinBox" name="baxis6_2">
            <property name="maximum">
-            <number>256</number>
+            <double>25699.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -486,7 +486,7 @@
        <x>60</x>
        <y>20</y>
        <width>531</width>
-       <height>171</height>
+       <height>206</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -804,6 +804,88 @@
     <property name="text">
      <string>voor Tim</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>353</width>
+      <height>54</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QPushButton" name="OwnAlgorithm">
+       <property name="text">
+        <string>Own Algorithm</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Min half A</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="MinA">
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <double>200.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Min half B</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="MinB">
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <double>200.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Acc Threshold</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="AccThresh">
+         <property name="decimals">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <double>100000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

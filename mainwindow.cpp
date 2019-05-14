@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
+//Test
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -28,7 +30,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_drawbutton_clicked()
 {
     ui->logbox->setText("");
-    EllipseImage imageellipse(256,256);
+    imageellipse.ClearColourImage();
+    imageellipse.ClearImage();
     amountellipse=0;
     // get and initialize the variables from the ui
 
@@ -193,7 +196,8 @@ void MainWindow::on_drawbutton_clicked()
         outpoints=0;
     }
 
-    ImageMat=imageellipse.GetImage();
+    ImageMat=imageellipse.GetColourImage();
+    DataMat=imageellipse.GetImage();
 
     if(amountellipse==0)
     {
@@ -203,7 +207,6 @@ void MainWindow::on_drawbutton_clicked()
     //std::cout<<*outpoints<<std::endl;
 
     cv::Mat img=ImageMat;
-    cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
     ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
 }
 
@@ -246,6 +249,7 @@ void MainWindow::on_actionOpen_triggered()
 
     std::string fileNameString = fileName.toStdString();
     ImageMat = cv::imread(fileNameString);
+    cv::cvtColor(ImageMat, ImageMat, CV_RGB2BGR);
     if (! ImageMat.empty()){
 
 
@@ -259,6 +263,9 @@ void MainWindow::on_actionOpen_triggered()
         std::string NameString = fileNameString.substr(startDelimiter + 1, stopDelimiter - startDelimiter - 1);
 
         setWindowTitle(QString::fromStdString(NameString));
+
+        cv::Mat img=ImageMat;
+        ui->picture->setPixmap(QPixmap::fromImage(QImage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888)));
     }
     else {
         std::cerr << "This image format is not supported." << std::endl;
@@ -299,7 +306,31 @@ void MainWindow::on_actionSave_as_triggered()
 void MainWindow::on_actionSave_triggered()
 {
 
-    cv::imwrite(currentFile, ImageMat);
+    if (currentFile != "NotAFile" ){
+        cv::imwrite(currentFile, ImageMat);
+    }
+    else {
+
+        QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+        std::string fileNameString = fileName.toStdString();
+        std::string extension = fileNameString.substr(fileNameString.find_last_of(".") + 1);
+        std::vector<std::string> ExtensionList = {"bmp", "dib", "jpeg", "jpg", "jpe", "jp2", "png", "pbm", "pgm", "ppm", "sr", "ras", "tiff", "tif"};
+
+        if (fileNameString.find(".") == std::string::npos){
+            std::cout << "Standard image format is .png" << std::endl;
+            cv::imwrite(fileNameString + ".png", ImageMat);
+        }
+
+        else if (std::find (ExtensionList.begin(), ExtensionList.end(), extension) != ExtensionList.end()){
+
+            cv::imwrite(fileNameString, ImageMat);
+        }
+
+        else {
+            std::cout << "This Extension is not supported" << std::endl;
+        }
+
+    }
 }
 
 void MainWindow::on_actionSave_Gray_As_triggered()
@@ -363,4 +394,87 @@ void MainWindow::on_actionSave_Compound_As_triggered()
     }
 
 }
+
+
+
+
+
+
+void MainWindow::on_OwnAlgorithm_clicked()
+{
+    //Maak van de variabelen nog veranderlijk via QT
+    Finder.newImage(DataMat);
+    double minA, minB, AccThresh;
+
+
+    if (ui->MinA->value() > 128){
+        ui->logbox->append("The maximum value of min half A cannot be larger than 128");
+        minA = 120;
+    }
+    else {
+        minA = ui->MinA->value();
+    }
+
+    if (ui->MinB->value() > 128) {
+        ui->logbox->append("The maximum value of min half B cannot be larger than 128");
+        minB = 120;
+    }
+    else {
+        minB = ui->MinB->value();
+    }
+
+    if (minA < minB){
+        ui->logbox->append("A should be larger than B. Since the minimums are switched, they will be switched again");
+
+        minA += minB;
+        minB = minA - minB;
+        minA -= minB;
+
+    }
+
+    if (ui->AccThresh->value() == 0){
+        ui->logbox->append("Accumulator Threshold must be a strictly positive number. Defaulting to 100.");
+        AccThresh = 150;
+    }
+    else {
+        AccThresh = ui->AccThresh->value();
+    }
+
+    //Ellipsfinder Finder.get(DataMat, minA, maxA, AccThresh);
+
+    std::vector<cv::Point> Centers; std::vector<unsigned> HMA; std::vector<unsigned> HMI; std::vector<double> orientation;
+
+    Finder.getEllipses(Centers, HMA, HMI, orientation, minA, minB, AccThresh);
+
+    if (Centers.size() >= 1){
+
+        ui->centerx1_2->setValue((Centers.at(0)).x);
+        ui->centery1_2->setValue((Centers.at(0)).y);
+        ui->aaxis1_2->setValue(HMA.at(0));
+        ui->baxis1_2->setValue(HMI.at(0));
+        ui->angle1_2->setValue(orientation.at(0));
+    }
+
+    if (Centers.size() >= 2){
+
+        ui->centerx2_2->setValue((Centers.at(1)).x);
+        ui->centery2_2->setValue((Centers.at(1)).y);
+        ui->aaxis2_2->setValue(HMA.at(1));
+        ui->baxis2_2->setValue(HMI.at(1));
+        ui->angle2_2->setValue(orientation.at(1));
+    }
+
+    imageellipse.ReadImage(ImageMat);
+
+    for (size_t counter = 0; counter < Centers.size(); ++counter){
+
+        imageellipse.DrawColouredEllipse(Centers.at(counter).x, 256 - Centers.at(counter).y, HMA.at(counter), HMI.at(counter), orientation.at(counter));
+
+    }
+
+
+    ui->picture->setPixmap(QPixmap::fromImage(QImage(ImageMat.data, ImageMat.cols, ImageMat.rows, ImageMat.step, QImage::Format_RGB888)));
+
+}
+
 
