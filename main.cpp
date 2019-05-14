@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     unsigned b=50;
     unsigned alfa=0.;
     unsigned points=500;
+    unsigned MIuni=0;
     if(argc>=7)
     {
         xcenter=atoi(argv[1]);
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
         alfa=atoi(argv[5]);
         points=atoi(argv[6]);
     }
+    if(argc>=8)MIuni=5;
     double angle=CV_PI*static_cast<double>(alfa)/180.;
     cout<< xcenter <<" " <<ycenter <<" "<< a <<" "<<b<<" "<<angle<<" "<<points<<endl;
 
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 
     clock_t start,end;
     start=clock();
-    test.getEllipses(centers,MA,MI,ori,20,10,50);
+    test.getEllipses(centers,MA,MI,ori,50,10,100,MIuni);
     end=clock();
     cout<< "my implementation takes: "<<std::setprecision(5) << static_cast<double>(end-start)/CLOCKS_PER_SEC*1E+3<< " milli seconds." << "\n\n";
     for(unsigned i=0;i<centers.size();++i)

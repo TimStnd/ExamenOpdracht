@@ -17,7 +17,7 @@ Ellipsfinder::Ellipsfinder(cv::Mat inputimage)
 }
 
 
-void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
+void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsigned MIuniqueness)
 {
     //clearing old ellipses
     ellipsCenters.clear();
@@ -78,10 +78,17 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
                         Pointsonellips.insert((accumulatorPoints.at(b-1)).begin(),(accumulatorPoints.at(b-1)).end());
                         Pointsonellips.insert(PPI);
                         Pointsonellips.insert(CPI);
+                        //adding point from the accumulator that are near the max
+                        for(unsigned i=0; i<MIuniqueness;++i)
+                        {
+                            if(b-1-i>0)Pointsonellips.insert((accumulatorPoints.at(b-1-i)).begin(),(accumulatorPoints.at(b-1-i)).end());
+                            if(b-1+i<accumulatorsize)Pointsonellips.insert((accumulatorPoints.at(b-1+i)).begin(),(accumulatorPoints.at(b-1+i)).end());
+                        }
                         //Changing leftoverpoints vector
                         //the loop will add all elements of leftoverPixels adds all pixels to newleftoverpixels that are not on the ellips
                         //We could also use the erase function but because erase is very inefficient and we have to delete different elements on different
                         //positions the loop will be faster
+
                        std::vector<cv::Point> newleftoverPixels;
                         for(unsigned index=0;index<leftoverPixels.size();++index)
                         {
@@ -110,9 +117,9 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10)
 
 }
 
-void Ellipsfinder::getEllipses(std::vector<cv::Point> &Centers, std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &orientation,unsigned minMA, unsigned minhMI, unsigned th10)
+void Ellipsfinder::getEllipses(std::vector<cv::Point> &Centers, std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &orientation, unsigned minMA, unsigned minhMI, unsigned th10, unsigned MIuniqueness)
 {
-    Algoritm(minMA,minhMI,th10);
+    Algoritm(minMA,minhMI,th10,MIuniqueness);
     Centers=ellipsCenters;
     hMA=ellipshMA;
     hMI=ellipshMI;
