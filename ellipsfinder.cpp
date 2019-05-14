@@ -1,5 +1,13 @@
 #include "ellipsfinder.h"
 
+Ellipsfinder::Ellipsfinder()
+{
+    Pixels.clear();
+    ellipsCenters.clear();
+    ellipshMA.clear();
+    ellipshMI.clear();
+    ellipsorientations.clear();
+}
 
 Ellipsfinder::Ellipsfinder(cv::Mat inputimage)
 {
