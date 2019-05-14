@@ -12,9 +12,8 @@
 class Ellipsfinder
 {
 public:
-    Ellipsfinder(cv::Mat inputimage, unsigned minMA=50, unsigned minhMI=10, unsigned th10=100);
-    void getEllipses(std::vector<cv::Point> &Centers,std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &oriantation);
-    void Algoritm(unsigned minMA, unsigned minhMI, unsigned th10);
+    Ellipsfinder(cv::Mat inputimage);
+    void getEllipses(std::vector<cv::Point> &Centers,std::vector<unsigned> &hMA, std::vector<unsigned> &hMI, std::vector<double> &oriantation,unsigned minMA=50, unsigned minhMI=10, unsigned th10=100);
     void newImage(cv::Mat inputimage);
 
 private:
@@ -22,15 +21,15 @@ private:
     std::vector<unsigned> ellipshMA;//hMA=half major axis
     std::vector<unsigned> ellipshMI;//hMI=half minor axis
     std::vector<double> ellipsorientations;
-
+    void Algoritm(unsigned minMA=50, unsigned minhMI=10, unsigned th10=100);
 
 //    unsigned thresholdstep4;
 //    unsigned thresholdstep6;
 //    unsigned thresholdstep10;
     //unsigned minhMIerr;
     std::vector<cv::Point> Pixels;
-    const unsigned IMrows;
-    const unsigned IMcols;
+    unsigned IMrows;
+    unsigned IMcols;
 
 
 
