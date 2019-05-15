@@ -34,23 +34,13 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
     {
         const cv::Point &PrimaryPixel=Pixels.at(PPI);
 
-        clock_t start,end;
-        start=clock();
-        Pointsonellips.count(PPIindex);
-        end=clock();
-        std::cout<< "##################################################" <<std::endl;
-        std::cout<< "PPI "<<PrimaryPixel<<std::endl;
-        std::cout<< "count takes: "<<std::setprecision(10) << static_cast<double>(end-start)/CLOCKS_PER_SEC*1E+3<< " milli seconds." << std::endl;
 
         if(!Pointsonellips.count(PPI))//Check if the point is already on an ellips
         {
-            clock_t startCPI,endCPI;
-            startCPI=clock();
             for(unsigned CPI=PPI+1;CPI<Pixels.size();++CPI)//CPI current pixel index
             {
 
                 const cv::Point &CurrentPixel=Pixels.at(CPI);
-                std::cout<<"PPI&CPI"<<PrimaryPixel<<"   " <<CurrentPixel;
 
                 if(!Pointsonellips.count(CPI) && getDist(PrimaryPixel,CurrentPixel)>=minMA)//check if CP is not already on ellips && check if dist>thershold
                 {
@@ -62,8 +52,6 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                     std::vector<std::vector<unsigned>> accumulatorPoints;//vector of vectors with all the indices of the point that belong to the corresponding minor axis and ellips
                     accumulatorPoints.resize(accumulator.size());
 
-                    clock_t startOPI,endOPI;
-                    startOPI=clock();
                     for(unsigned OPI=0;OPI<leftoverPixels.size();++OPI)//OPI other pixel index
                     {
                         const cv::Point &OtherPixel=leftoverPixels.at(OPI);
@@ -81,8 +69,6 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                             }
                         }
                     }
-                    endOPI=clock();
-                    std::cout<< "Loop OPI: "<<std::setprecision(10) << static_cast<double>(endOPI-startOPI)/CLOCKS_PER_SEC*1E+3<< " milli seconds.";
 
                     //finding maximum element in accumulator
                     std::vector<unsigned>::const_iterator itermax=max_element(accumulator.begin(),accumulator.end());
@@ -105,15 +91,13 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                         //the loop will add all elements of leftoverPixels adds all pixels to newleftoverpixels that are not on the ellips
                         //We could also use the erase function but because erase is very inefficient and we have to delete different elements on different
                         //positions the loop will be faster
-                        start=clock();
+
                         std::vector<cv::Point> newleftoverPixels;
                         for(unsigned index=0;index<leftoverPixels.size();++index)
                         {
                             if(!Pointsonellips.count(index))newleftoverPixels.push_back(leftoverPixels.at(index));
                         }
                         leftoverPixels=newleftoverPixels;
-                        end=clock();
-                        std::cout<< "resizing leftoverPixels: "<<std::setprecision(10) << static_cast<double>(end-start)/CLOCKS_PER_SEC*1E+3<< " milli seconds." << std::endl;
 
 
                         //adding ellips to output variables
@@ -126,8 +110,6 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                 }
 
             }
-            endCPI=clock();
-            std::cout<<std::endl<< "Loop CPI: "<<std::setprecision(10) << static_cast<double>(endCPI-startCPI)/CLOCKS_PER_SEC*1E+3<< " milli seconds."<<std::endl;
         }
 
     }
