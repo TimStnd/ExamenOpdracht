@@ -8,6 +8,8 @@
 #include <iostream>
 #include <cmath>
 #include <stdlib.h>
+#include <time.h>
+#include <iomanip>
 
 class Ellipsfinder
 {
