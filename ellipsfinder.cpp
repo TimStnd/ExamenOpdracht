@@ -86,7 +86,7 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                         //adding point from the accumulator that are near the max
                         for(unsigned i=0; i<MIuniqueness;++i)
                         {
-                            if(b-1-i>0)Pointsonellips.insert((accumulatorPoints.at(b-1-i)).begin(),(accumulatorPoints.at(b-1-i)).end());
+                            if(b-1-i>0&&b>=1+i)Pointsonellips.insert((accumulatorPoints.at(b-1-i)).begin(),(accumulatorPoints.at(b-1-i)).end());//b>=1+i is to prevent underflow errors
                             if(b-1+i<accumulatorsize)Pointsonellips.insert((accumulatorPoints.at(b-1+i)).begin(),(accumulatorPoints.at(b-1+i)).end());
                         }
                         //Changing leftoverpoints vector
