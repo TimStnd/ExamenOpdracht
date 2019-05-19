@@ -48,7 +48,9 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                     double MA=getHalflengthMaA(PrimaryPixel,CurrentPixel);
                     std::vector<unsigned> accumulator(static_cast<unsigned>(round(MA))-1,0);//vector with the size of the diagonal/2 in pixels each vector position is the size of minor axis-1
                                                                                             //this is the maximum and ellips could realisticly be
+
                     unsigned accumulatorsize=accumulator.size();
+                    if(accumulatorsize==0)continue;
                     std::vector<std::vector<unsigned>> accumulatorPoints;//vector of vectors with all the indices of the point that belong to the corresponding minor axis and ellips
                     accumulatorPoints.resize(accumulator.size());
 
@@ -73,7 +75,7 @@ void Ellipsfinder::Algoritm(unsigned minMA, unsigned minhMI, unsigned th10, unsi
                     //finding maximum element in accumulator
                     std::vector<unsigned>::const_iterator itermax=max_element(accumulator.begin(),accumulator.end());
                     //std::cout<<"max is:"<<*itermax<<std::endl;
-                    if(*itermax>=th10)
+                    if(*itermax>th10)
                     {
                         //std::cout<<"Ellips found!!!"<<std::endl;
                         unsigned b=itermax-accumulator.begin()+1;
